@@ -5,6 +5,10 @@ Concept code for museum exhibits to show more information about the pieces which
 
 The knn transfer learning works perfectly here as museums have a good consistent control background against which it's easier to detect objects.
 
+## Demo Video
+
+[Link to Youtube video](https://youtu.be/xKa1Vvh38cw)
+
 ### How to use this.
 
 #### For content creators
