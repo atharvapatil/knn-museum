@@ -14,7 +14,7 @@ function setup() {
 }
 
 function modelReady(){
-  select('#status').html('FeatureExtractor(mobileNet model) Loaded')
+  select('#status').html('You can find the objects placed next to the screen')
 }
 
 // Add the current frame from the video to the classifier
@@ -44,52 +44,14 @@ function classify() {
 
 // A util function to create UI buttons
 function createButtons() {
-  buttonA = select('#addClassRock');
-  buttonA.mousePressed(function() {
-    addExample('Thor');
-  });
-
-  buttonB = select('#addClassPaper');
-  buttonB.mousePressed(function() {
-    addExample('Loki');
-  });
-
-  buttonC = select('#addClassScissor');
-  buttonC.mousePressed(function() {
-    addExample('Odin');
-  });
-
-  // Reset buttons
-  resetBtnA = select('#resetRock');
-  resetBtnA.mousePressed(function() {
-    clearLabel('Thor');
-  });
-
-  resetBtnB = select('#resetPaper');
-  resetBtnB.mousePressed(function() {
-    clearLabel('Loki');
-  });
-
-  resetBtnC = select('#resetScissor');
-  resetBtnC.mousePressed(function() {
-    clearLabel('Odin');
-  });
 
   // Predict button
   buttonPredict = select('#buttonPredict');
   buttonPredict.mousePressed(classify);
 
-  // Clear all classes button
-  buttonClearAll = select('#clearAll');
-  buttonClearAll.mousePressed(clearAllLabels);
-
   // Load saved classifier dataset
   buttonSetData = select('#load');
   buttonSetData.mousePressed(loadMyKNN);
-
-  // Get classifier dataset
-  buttonGetData = select('#save');
-  buttonGetData.mousePressed(saveMyKNN);
 }
 
 // Show the results
@@ -105,6 +67,21 @@ function gotResults(err, result) {
     if (result.label) {
       select('#result').html(result.label);
       select('#confidence').html(`${confidences[result.label] * 100} %`);
+
+      if (result.label == 'Thor'){
+        let thorText = 'In Germanic mythology, Thor is a hammer-wielding god associated with thunder, lightning, storms, oak trees, strength, the protection of mankind and also hallowing and fertility.'
+        document.getElementById("result-header").innerHTML = 'The Mighty Thor';
+        document.getElementById("result-text").innerHTML = thorText;
+      } else if (result.label == 'Loki'){
+        const lokiText = 'Loki (Old Norse: [ˈloki], Modern Icelandic: [ˈlɔːkɪ], often Anglicized as /ˈloʊki/) is a god in Norse mythology. Loki is in some sources the son of Fárbauti and Laufey, and the brother of Helblindi and Býleistr.'
+        document.getElementById("result-header").innerHTML = "The Treacherous Loki ";
+        document.getElementById("result-text").innerHTML = lokiText;
+      } else if (result.label == 'Odin'){
+        let odinText = 'In Norse mythology, Odin (Old Norse: Óðinn) is the god of wisdom, poetry, death, divination and magic. Son of Bor and the giantess (jötunn) Bestla, Odin is the chief of the Æsir and the king of Asgard. He is married to the goddess Frigg, and is the father of the gods Thor, Baldr, Höðr, Víðarr and Vál'
+        document.getElementById("result-header").innerHTML = "Odin Allfather";
+        document.getElementById("result-text").innerHTML = odinText;
+      }
+
     }
 
     select('#confidenceRock').html(`${confidences['Thor'] ? confidences['Thor'] * 100 : 0} %`);
